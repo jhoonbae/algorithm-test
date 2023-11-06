@@ -35,7 +35,7 @@ n	m	section	result
  */
 function solution(n, m, section) {
     var answer = 0;
-    section.map(())
+    // section.map(())
     return answer;
 }
 
