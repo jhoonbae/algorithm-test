@@ -1,24 +1,31 @@
+/**
+ * 
+    k와 honor.length 가 같지 않을 땐 honor에 push, answer에 honor.min push,
+    이후는 현재 score 과 honor.min 비교 후 밑 로직 수행.
+ */
 function solution(k, score) {
+    let honor = [];
     let answer = [];
-    let k_arr = [];
-    let min_arr = [];
-    for(let i = 0; i < k; i++) {
-        k_arr.push(score[i]);
-        min_arr.push(Math.min(...k_arr));
-    }
-    score.splice(0, k);
-    while(score.length > 0) {
-        let min = Math.min(...k_arr);
-        if(score[0] > min) {
-            let idx = k_arr.indexOf(min);
-            k_arr[idx] = score[0];
-            console.log('object :>> ', Math.min(...k_arr));
-            min_arr.push(Math.min(...k_arr));
+    for(let i = 0; i < score.length; i++) {
+        let min
+        if(honor.length !== k) {
+            honor.push(score[i]);
+            min = Math.min(...honor);
+            answer.push(min);
         }
-        else min_arr.push(Math.min(...min_arr));
-        score.shift();
+        else {
+            min = Math.min(...honor);
+            if(min < score[i]) {
+                let idx = honor.indexOf(min);
+                honor[idx] = score[i];
+                min = Math.min(...honor);
+                answer.push(min);
+            }else {
+                answer.push(min);
+            }
+        }
     }
-    return min_arr;
+    return answer;
 }
 
-console.log(solution(3, [10, 100, 20, 150, 1, 100, 200]))
+console.log(solution(4, [0, 300, 40, 300, 20, 70, 150, 50, 500, 1000]))
